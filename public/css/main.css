@@ -18,13 +18,8 @@ body {
   body .menu-bar a.active {
     background-color: #4CAF50;
     color: white; }
-  body #about {
+  body .dyn-page {
     position: absolute;
     top: 100px;
     left: 50px;
-    width: 650px; }
-  body #projects {
-    position: absolute;
-    top: 100px;
-    left: 50px;
-    width: 650px; }
+    width: 700px; }
