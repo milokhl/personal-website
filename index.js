@@ -17,6 +17,11 @@ app.listen((process.env.PORT || 3000), function() {
   console.log('Listening on port 3000.');
 });
 
+app.get('/', function(req, res) {
+  // var string = encodeURIComponent('something that would break');
+  res.redirect('/html/index.html');
+});
+
 // Serve static markdown files
 app.use(mds.middleware({
   rootDirectory: markDownDir,
