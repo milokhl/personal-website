@@ -1,0 +1,2 @@
+# Note: this only works if nodemon is installed with -g (globally)
+nodemon -e scss -x “npm run build-css”

@@ -1,0 +1,1 @@
+browserify --debug ../public/javascript/index.js -o ../public/javascript/bundle.js

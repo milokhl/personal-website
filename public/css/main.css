@@ -1,0 +1,30 @@
+body {
+  margin: 0; }
+  body .menu-bar {
+    overflow: hidden;
+    background-color: #333; }
+  body .menu-bar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    border: 1px solid black; }
+  body .menu-bar a:hover {
+    background-color: #ddd;
+    color: black; }
+  body .menu-bar a.active {
+    background-color: #4CAF50;
+    color: white; }
+  body #about {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    width: 650px; }
+  body #projects {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    width: 650px; }
