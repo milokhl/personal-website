@@ -1,0 +1,19 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "description": "Milo Knowles' personal website.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milokhl/personal-website.git"
+  },
+  "author": "Milo Knowles",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/milokhl/personal-website/issues"
+  },
+  "homepage": "https://github.com/milokhl/personal-website#readme"
+}
