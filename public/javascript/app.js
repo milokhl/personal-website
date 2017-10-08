@@ -1,3 +1,4 @@
+// Main navigation bar.
 var menuBar = document.createElement('div');
 menuBar.className = 'menu-bar';
 menuBar.innerHTML =
@@ -7,45 +8,40 @@ menuBar.innerHTML =
 <a href="/images/resume.pdf">Resume</a>\
 <a href="https://github.com/milokhl">Github</a>';
 document.body.appendChild(menuBar);
-
 menuBar.addEventListener('click', function(e) {
 	navigate();
 });
 
-var aboutSection = document.getElementById('about');
-var projectSection = document.getElementById('projects');
-var contactSection = document.getElementById('contact');
-contactSection.hidden = true;
-projectSection.hidden = true;
+/*
+Looks for the file pageName.md in /markdown.
+If found, the document div with id=pageName will
+have its innerHTML set to the rendered markdown.
+*/
+function loadMarkdown(pageName) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById(pageName).innerHTML = this.responseText;
+    }
+  };
+  xhttp.open('GET', '/' + pageName, true);
+  xhttp.send();
+}
 
-// Set up about page.
-var aboutTitle = document.createElement('h1');
-aboutTitle.innerHTML = 'About';
-var aboutText = document.createElement('p');
-aboutText.innerHTML =
-"My name is Milo Knowles, and I'm a junior at MIT studying computer science and aeronautical engineering. Welcome to my website!";
-aboutSection.appendChild(aboutTitle);
-aboutSection.appendChild(aboutText);
+// Load the markdown for all pages.
+var pages = {};
+var pageNames = ['about', 'projects', 'contact'];
+var defaultPage = pageNames[0];
+pageNames.forEach(function (pageName) {
+	pages[pageName] = document.getElementById(pageName);
+	loadMarkdown(pageName);
 
-// Set up the projects page.
-var projectsTitle = document.createElement('h1');
-projectsTitle.innerHTML = 'Projects';
-var projectText = document.createElement('p');
-projectText.innerHTML = "Some of my projects are listed below:";
-projectSection.appendChild(projectsTitle);
-projectSection.appendChild(projectText);
-
-// Set up contact section.
-contactSection.innerHTML = '<h1>Contact</h1>\
-	<p>Milo Knowles</p>\
-	<p>mknowles@mit.edu</p>\
-	<p>hmu on linkedin</p>';
-
-var pages = {
-	'about': aboutSection,
-	'projects': projectSection,
-	'contact': contactSection
-};
+	// Hide and disable pages that are not the default.
+	if (pageName != defaultPage) {
+		pages[pageName].hidden = true;
+		pages[pageName].pointerEvents = 'none';
+	}
+});
 
 function navigate() {
 	setTimeout(function () {
@@ -63,3 +59,5 @@ function navigate() {
 		}
 	}, 100);
 }
+
+navigate();
