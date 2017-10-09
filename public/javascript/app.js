@@ -6,7 +6,8 @@ menuBar.innerHTML =
 <a href="#projects">Projects</a>\
 <a href="#contact">Contact</a>\
 <a href="/images/resume.pdf">Resume</a>\
-<a href="https://github.com/milokhl">Github</a>';
+<a href="https://github.com/milokhl">Github</a>\
+<a href="https://milokhl.wordpress.com/">Old Blog</a>';
 document.body.appendChild(menuBar);
 menuBar.addEventListener('click', function(e) {
 	navigate();

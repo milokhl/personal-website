@@ -1,7 +1,14 @@
 body {
   background-image: url("/images/meadow.JPG");
   background-repeat: repeat-y;
-  background-size: 100% auto; }
+  background-size: 100% auto;
+  font-family: "Times New Roman", Times, serif; }
+  body p {
+    font-size: 17px; }
+  body h1 {
+    font-size: 36px; }
+  body h2 {
+    font-size: 26px; }
   body .menu-bar {
     position: fixed;
     left: 50%;
