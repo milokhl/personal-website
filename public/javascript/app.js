@@ -75,3 +75,5 @@ function navigateLocal(pathname) {
 	}, 10);
 }
 navigateLocal();
+
+// TODO: fix back button behavior

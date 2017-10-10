@@ -12,16 +12,22 @@ body {
   background-repeat: repeat-y;
   background-size: 100% auto;
 
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
 
   p {
 	  font-size: 17px;
+	  margin-left: 20px;
+	  margin-left: 20px;
 	}
 	h1 {
 		font-size: 36px;
+		margin-left: 15px;
+		margin-right: 15px;
 	}
 	h2 {
 		font-size: 26px;
+		margin-left: 15px;
+		margin-right: 15px;
 	}
 
 	.menu-bar {
@@ -60,9 +66,10 @@ body {
 		left: 50%;
 		transform: translateX(-50%);
 		background-color: $mk-light-gray;
-		height: 500%;
+		// height: 500%;
 		margin: 0 auto;
 		width: $page-width;
 		z-index: 1;
+		border: 2px solid white;
 	}
 }
