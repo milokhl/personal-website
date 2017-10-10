@@ -2,63 +2,76 @@
 var menuBar = document.createElement('div');
 menuBar.className = 'menu-bar';
 menuBar.innerHTML =
-'<a class="active" href="#about">About</a>\
-<a href="#projects">Projects</a>\
-<a href="#contact">Contact</a>\
+'<a class="active" href="/about">About</a>\
+<a href="/projects">Projects</a>\
+<a href="/contact">Contact</a>\
 <a href="/images/resume.pdf">Resume</a>\
 <a href="https://github.com/milokhl">Github</a>\
 <a href="https://milokhl.wordpress.com/">Old Blog</a>';
 document.body.appendChild(menuBar);
-menuBar.addEventListener('click', function(e) {
-	navigate();
-});
+
+// pageContainer allows new HTML to be loaded in without reloading the page.
+var pageContainer = document.getElementById('page-container');
 
 /*
-Looks for the file pageName.md in /markdown.
-If found, the document div with id=pageName will
-have its innerHTML set to the rendered markdown.
+Intercepts click events, so that if the user clicks on a local link
+the new content will be loaded into the page, rather than having
+the browser redirect.
 */
-function loadMarkdown(pageName) {
+function interceptClickEvent(e) {
+    var href;
+    var target = e.target || e.srcElement;
+    if (target.tagName === 'A') {
+        href = target.getAttribute('href');
+
+        // Page should not reload for local pages.
+        if (href[0] == '/') {
+        	e.preventDefault();
+
+        	// Open pdf in new window.
+        	if (href.includes('.pdf')) {
+        		window.open(href, '_blank');
+        	} else {
+        		loadContent(href, pageContainer);
+        	}
+        }
+    }
+}
+
+// Listen for clicks to intercept link requests.
+if (document.addEventListener) {
+    document.addEventListener('click', interceptClickEvent);
+} else if (document.attachEvent) {
+    document.attachEvent('onclick', interceptClickEvent);
+}
+
+/*
+Looks for a local url, such as /about or 
+/pages/maslab-2017.
+If found, the "container" div will have its
+innerHTML set to the rendered markdown.
+*/
+function loadContent(pageUrl, container) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById(pageName).innerHTML = this.responseText;
+      container.innerHTML = this.responseText;
+      window.history.pushState(this.responseText, "Milo Knowles", '/html/index.html#' + pageUrl);
     }
   };
-  xhttp.open('GET', '/' + pageName, true);
+  xhttp.open('GET', pageUrl, true);
   xhttp.send();
 }
 
-// Load the markdown for all pages.
-var pages = {};
-var pageNames = ['about', 'projects', 'contact'];
-var defaultPage = pageNames[0];
-pageNames.forEach(function (pageName) {
-	pages[pageName] = document.getElementById(pageName);
-	loadMarkdown(pageName);
+function navigateLocal(pathname) {
+	var localPath = window.location.hash.substr(1);
 
-	// Hide and disable pages that are not the default.
-	if (pageName != defaultPage) {
-		pages[pageName].hidden = true;
-		pages[pageName].pointerEvents = 'none';
+	// Load the 'about' page by default.
+	if (!localPath) {
+		localPath = '/about';
 	}
-});
-
-function navigate() {
 	setTimeout(function () {
-		var page = window.location.hash.substr(1);
-		if (pages[page]) {
-			for (var p in pages) {
-				if (p == page) {
-					pages[p].hidden = false;
-					pages[p].style.pointerEvents = 'auto';
-				} else {
-					pages[p].hidden = true;
-					pages[p].style.pointerEvents = 'none';
-				}
-			}
-		}
-	}, 100);
+		loadContent(localPath, pageContainer);
+	}, 10);
 }
-
-navigate();
+navigateLocal();
