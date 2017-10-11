@@ -8,6 +8,8 @@ layout: markdown
 
 Milo Knowles
 
-mknowles@mit.edu
+Email: mknowles@mit.edu
 
-https://www.linkedin.com/in/milo-knowles/
+Linkedin: https://www.linkedin.com/in/milo-knowles/
+
+Github: https://github.com/milokhl

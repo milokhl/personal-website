@@ -2,13 +2,26 @@
 var menuBar = document.createElement('div');
 menuBar.className = 'menu-bar';
 menuBar.innerHTML =
-'<a class="active" href="/about">About</a>\
-<a href="/projects">Projects</a>\
-<a href="/contact">Contact</a>\
+'<a id="/about-button" href="/about">About</a>\
+<a id="/projects-button" href="/projects">Projects</a>\
+<a id="/contact-button" href="/contact">Contact</a>\
 <a href="/images/resume.pdf">Resume</a>\
 <a href="https://github.com/milokhl">Github</a>\
 <a href="https://milokhl.wordpress.com/">Old Blog</a>';
 document.body.appendChild(menuBar);
+
+// Highlight the active button
+menuBar.addEventListener('click', function(e) {
+  if (e.target.tagName == 'A') {
+    if (menuBar) {
+      var children = menuBar.children;
+      for (var i = 0; i < children.length; i++) {
+        children[i].classList.remove('active');
+      }
+    }
+    e.target.classList.add('active');
+  }
+});
 
 // pageContainer allows new HTML to be loaded in without reloading the page.
 var pageContainer = document.getElementById('page-container');
@@ -77,3 +90,12 @@ function navigateLocal(pathname) {
 navigateLocal();
 
 // TODO: fix back button behavior
+
+function updateActiveButton() {
+  var localPath = window.location.hash.substr(1);
+  var button = document.getElementById(localPath + '-button');
+  if (button) {
+    button.classList.add('active');
+  }
+}
+updateActiveButton();

@@ -6,4 +6,4 @@ layout: markdown
  
 # About
 
-I'm a junior at MIT, studying Computer Science and Aeronautical engineering.
+I'm a junior at MIT, studying Computer Science and Aeronautical engineering. I'm interested in anything related to robotics, machine learning, AI, and music.

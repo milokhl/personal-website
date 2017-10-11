@@ -23,11 +23,6 @@ app.get('/', function(req, res) {
   res.redirect('/html/index.html');
 });
 
-// app.get('/category', function(req, res) {
-//   var string = encodeURIComponent('something that would break');
-//   res.redirect('/?valid=' + string);
-// });
-
 // Serve static markdown files
 app.use(mds.middleware({
   rootDirectory: markDownDir,

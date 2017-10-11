@@ -24,19 +24,19 @@ I started out by designing a linear actuator that could move something about 4".
 
 I added one intermediate gear to double the gear ratio between the servo and the actuator so that 180 degrees of rotation could cover about 4" of linear distance.
 
-<!-- <picture of linear actuator assembly> -->
-
 Then, I designed the rest of the elevator and attached the linear actuator to it. I added a little servo-driven grabber on the end of the linear actuator to skewer blocks through their 1" center hole.
-
-<!-- <picture of whole elevator assembly> -->
 
 The whole elevator mechanism: lower the actuator, skewer a ground-level block, lift it about 3", slide another block underneath, repeat.
 
-[![Elevator mechanism](https://img.youtube.com/vi/r7y0b0BK6cc/0.jpg)](https://youtu.be/r7y0b0BK6cc)
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/r7y0b0BK6cc?rel=0" frameborder="0" allowfullscreen></iframe>
+</center>
 
 And to drop a stack at the end of the match, the elevator lowers, and the grabber retracts.
 
-[![Elevator stacking demo](https://img.youtube.com/vi/DVzUAzwLHqs/0.jpg)](https://youtu.be/DVzUAzwLHqs)
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/DVzUAzwLHqs?rel=0" frameborder="0" allowfullscreen></iframe>
+</center>
 
 I had to make a fuck ton of trips to the laser cutter as we tested and refined the elevator design. Even when stuff looked great in the assembly, something was always a little off in real life. Amazingly, it worked well in the end.
 
@@ -44,13 +44,17 @@ My team also took a different approach to collecting opponent blocks. Most teams
 
 You probably have to see what it looks like to understand what I'm talking about.
 
-[![Elevator stacking demo](https://img.youtube.com/vi/_3bzQB3cxCQ/0.jpg)](https://youtu.be/_3bzQB3cxCQ)
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_3bzQB3cxCQ?rel=0" frameborder="0" allowfullscreen></iframe>
+</center>
 
 Finally, I had to design the rest of our robot around the block elevator and block skewer. Pretty much everything in MASLAB is made out of 0.25" MDF. Our robot has two layers centered around the elevator. The second layer accomodates all of the electronics (Teensy, gyro, motor driver, battery, Intel NUC). I also added some supports along two axes for the elevator - it was too tall and had us all worried.
 
 Fully assembled, with electronics installed:
 
+<center>
 ![Full robot assembly](/images/robot-full-assembly.jpg)
+</center>
 
 When it's time to release our stack of blocks at the end of the match. The front wall of the elevator rotates to one side, and the robot *really* carefully backs away. It has to be 2" from the stack for it to receive points.
 
@@ -68,9 +72,10 @@ In addition to the depth imagery from the Kinect, gmapping requires a couple tra
 
 If you're curious, this is what the tf tree looks like when I have everything running. The stuff on the right is published by the kinect driver nodes, and the stuff on the left is published by my code on the robot and the gmapping node.
 
+<center>
 ![ROS Transforms](/images/publisher-frames.png)
-
 ![Floorplan example](/images/slam2_good.png)
+</center>
 
 ## Pursuing a Block with a Webcam and OpenCV
 
@@ -80,7 +85,9 @@ I turned my team's OpenCV code into a ROS node, and added the webcam to our rob
 
 Here you can see the robot centering on a couple blocks and collecting them. The blocks had to be on paper because the color sensor at the base of the elevator was getting confused by the carpet for whatever reason.
 
-[![Robot chasing block](https://img.youtube.com/vi/yYVgA6mhyBU/0.jpg)](https://youtu.be/yYVgA6mhyBU)
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yYVgA6mhyBU?rel=0" frameborder="0" allowfullscreen></iframe>
+</center>
 
 ## Final competition strategy
 
@@ -108,7 +115,9 @@ Despite a very bad seeding round, we won 7/9 matches in the competition, and sw
 
 Here's a highlight reel that I threw together from the competition.
 
-[![Final competition 2017](https://img.youtube.com/vi/M5HQa1MqTzI/0.jpg)](https://youtu.be/M5HQa1MqTzI)
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/M5HQa1MqTzI?rel=0" frameborder="0" allowfullscreen></iframe>
+</center>
 
 We actually were adding new features to the robot between every round. It was definitely a risky move, but saved us from some state loops that we discovered during the competition, and from accidentally entering our 'endgame' mode prematurely when the robot thought it had picked up more blocks than it really had.
 
