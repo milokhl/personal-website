@@ -1,3 +1,16 @@
+var marked = require('marked');
+console.log(marked('I am using __markdown__.'));
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
+});
+
 // Main navigation bar.
 var menuBar = document.createElement('div');
 menuBar.className = 'menu-bar';
@@ -58,6 +71,17 @@ if (document.addEventListener) {
     document.attachEvent('onclick', interceptClickEvent);
 }
 
+function highlightSyntax(html) {
+  console.log(html);
+  var result = html.match(/<code>(.*?)<\/code>/g);
+  if (result) {
+    var snippets = result.map(function(val) {
+      return val.replace(/<\/?code>/g, '');
+    });
+    console.log(snippets);
+  }
+}
+
 /*
 Looks for a local url, such as /about or 
 /pages/maslab-2017.
@@ -69,6 +93,7 @@ function loadContent(pageUrl, container) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       container.innerHTML = this.responseText;
+      highlightSyntax(this.responseText);
       window.history.pushState(this.responseText, "Milo Knowles", '/html/index.html#' + pageUrl);
     }
   };

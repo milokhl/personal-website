@@ -19,7 +19,6 @@ app.listen((process.env.PORT || 3000), function() {
 
 // Redirect to the main page
 app.get('/', function(req, res) {
-	// var string = encodeURIComponent('/about');
   res.redirect('/html/index.html');
 });
 

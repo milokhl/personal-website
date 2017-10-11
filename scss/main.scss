@@ -1,8 +1,4 @@
-$mk-light-blue: #d3e4ff;
-$mk-dark-blue: #2b6acd;
-$mk-light-gray: #e2e2e2;
-$mk-medium-gray: #999999;
-$mk-dark-gray: #333;
+@import 'jekyll-theme-cayman';
 
 $page-width: 1000px;
 $menubar-height: 50px;
@@ -12,24 +8,6 @@ body {
   background-repeat: repeat-y;
   background-size: 100% auto;
 
-  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
-
-  p {
-	  font-size: 17px;
-	  margin-left: 20px;
-	  margin-left: 20px;
-	}
-	h1 {
-		font-size: 36px;
-		margin-left: 15px;
-		margin-right: 15px;
-	}
-	h2 {
-		font-size: 26px;
-		margin-left: 15px;
-		margin-right: 15px;
-	}
-
 	.menu-bar {
 		position: fixed;
 		left: 50%;
@@ -38,13 +16,13 @@ body {
 		width: $page-width;
 		height: $menubar-height;
 	  overflow: hidden;
-	  background-color: #333;
+	  background-color: $mk-dark-gray;
 	  z-index: 100;
 	}
 	.menu-bar a {
 	  float: left;
 	  display: block;
-	  color: #f2f2f2;
+	  color: white;
 	  text-align: center;
 	  padding: 14px 16px;
 	  text-decoration: none;
@@ -52,23 +30,21 @@ body {
 	  border: 1px solid black;
 	}
 	.menu-bar a:hover {
-	  background-color: #ddd;
+	  background-color: $mk-medium-gray;
 	  color: black;
 	}
 	.menu-bar a.active {
-	  background-color: #4CAF50;
+	  background-color: $mk-medium-gray;
 	  color: white;
 	}
 
-	.dyn-page {
+	.main-content {
 		position: absolute;
 		top: $menubar-height;
 		left: 50%;
 		transform: translateX(-50%);
 		background-color: $mk-light-gray;
-		margin: 0 auto;
 		width: $page-width;
 		z-index: 1;
-		border: 2px solid white;
 	}
 }

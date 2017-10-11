@@ -21,8 +21,7 @@ Here’s what the main view of the app looks like. Create a custom color with th
 </center>
 
 ## Arduino code
-
-<pre><code>
+```c++
 	#include &amp;lt;SPI.h&amp;gt;;
 	#include "Adafruit_BLE_UART.h";
 	#include &amp;lt;String.h&amp;gt;;
@@ -281,7 +280,7 @@ Here’s what the main view of the app looks like. Create a custom color with th
 	    break;
 	  }
 	}
-</code></pre>
+```
 
 ## Updated iPhone App
 
