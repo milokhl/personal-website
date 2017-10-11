@@ -6,10 +6,11 @@ layout: markdown
  
 # Projects
 
-- [LED Light Controller](/pages/led-light-controller)
+- [This website](https://github.com/milokhl/personal-website): Express.js, Node.js, markdown, html, scss
 
-- [Homemade Quadcopter](https://milokhl.wordpress.com/450mm-aerial-photography-quadcopter/)
+- [LED Light Controller](/pages/led-light-controller): Arduino, swift, bluetooth
 
+- [Quadcopter](https://milokhl.wordpress.com/450mm-aerial-photography-quadcopter/):
 - MIT Pokerbots
 
 - [MASLAB: Building an Autonomous Block Stacking Robot](/pages/maslab-2017)
@@ -18,4 +19,4 @@ layout: markdown
 
 - Trading Cryptocurrencies with Deep Q-Learning
 
-- [HACKMIT 2016](https://devpost.com/software/tourdemarsvr)
+- [HACKMIT 2016](https://devpost.com/software/tourdemarsvr): Multiplayer VR, arduino, jank hardware
