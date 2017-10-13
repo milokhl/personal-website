@@ -17,6 +17,7 @@ menuBar.className = 'menu-bar';
 menuBar.innerHTML =
 '<a id="/about-button" href="/about">About</a>\
 <a id="/projects-button" href="/projects">Projects</a>\
+<a id="/dronephoto-button" href="/dronephoto">Drone Photography</a>\
 <a id="/contact-button" href="/contact">Contact</a>\
 <a href="/images/resume.pdf">Resume</a>\
 <a href="https://github.com/milokhl">Github</a>\
