@@ -32,7 +32,9 @@ function interceptClickEvent(e) {
     	// Open pdf in new window.
     	if (href.includes('.pdf')) {
     		window.open(href, '_blank');
-    	} else {
+    	} else if (href.includes('github')) {
+        window.open(href, '_blank'); // TODO: not opening in new tab.
+      else {
     		loadContent(href, pageContainer);
     	}
     }
@@ -80,7 +82,7 @@ function loadContent(pageUrl, container) {
     if (this.readyState == 4 && this.status == 200) {
       container.innerHTML = this.responseText;
       highlightSyntax(this.responseText);
-      window.history.pushState(this.responseText, "Milo Knowles", '/html/base.html#' + pageUrl);
+      window.history.pushState(this.responseText, "milo", '/html/base.html#' + pageUrl);
     }
   };
   xhttp.open('GET', pageUrl, true);
@@ -102,11 +104,11 @@ navigateLocal();
 
 // TODO: fix back button behavior
 
-function updateActiveButton() {
-  var localPath = window.location.hash.substr(1);
-  var button = document.getElementById(localPath + '-button');
-  if (button) {
-    button.classList.add('active');
-  }
-}
-updateActiveButton();
+// function updateActiveButton() {
+//   var localPath = window.location.hash.substr(1);
+//   var button = document.getElementById(localPath + '-button');
+//   if (button) {
+//     button.classList.add('active');
+//   }
+// }
+// updateActiveButton();
