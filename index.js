@@ -1,7 +1,6 @@
 var express 					= require('express');
 		app 							= express();
 		path 							= require('path');
-		sass							= require('node-sass-middleware');
 		browserify 				= require('browserify-middleware');
 		mds								= require('markdown-serve');
 

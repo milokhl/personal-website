@@ -32,9 +32,7 @@ function interceptClickEvent(e) {
     	// Open pdf in new window.
     	if (href.includes('.pdf')) {
     		window.open(href, '_blank');
-    	} else if (href.includes('github')) {
-        window.open(href, '_blank'); // TODO: not opening in new tab.
-      else {
+    	} else {
     		loadContent(href, pageContainer);
     	}
     }
