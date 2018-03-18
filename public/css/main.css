@@ -843,3 +843,5 @@ body {
     background-color: #e2e2e2;
     width: 1000px;
     z-index: 1; }
+  body .gist-snippet {
+    width: 1000px; }

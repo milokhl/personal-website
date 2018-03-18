@@ -1,2 +1,2 @@
-web: npm run build-css & npm run browserify & node index.js
-local: npm start
+web: npm run browserify & node index.js
+local: npm run start

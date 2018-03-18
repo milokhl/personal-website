@@ -38,7 +38,7 @@ And to drop a stack at the end of the match, the elevator lowers, and the grabbe
 <iframe width="560" height="315" src="https://www.youtube.com/embed/DVzUAzwLHqs?rel=0" frameborder="0" allowfullscreen></iframe>
 </center>
 
-I had to make a fuck ton of trips to the laser cutter as we tested and refined the elevator design. Even when stuff looked great in the assembly, something was always a little off in real life. Amazingly, it worked well in the end.
+I had to make a ton of trips to the laser cutter as we tested and refined the elevator design. Even when stuff looked great in the assembly, something was always a little off in real life. Amazingly, it worked well in the end.
 
 My team also took a different approach to collecting opponent blocks. Most teams have their robot lift or throw them into some kind of bin. With the way our elevator worked, it was hard to do that. Arinze had this kind of weird idea to have a rotating skewer that would go through a block, and then pull it out from under the elevator. I had no clue whether it would work, but I went ahead and prototyped it and by some miracle (or the way it was prototyped ;) it did!
 

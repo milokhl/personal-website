@@ -6,17 +6,53 @@ layout: markdown
  
 # Projects
 
-- [This website](https://github.com/milokhl/personal-website): Express.js, Node.js, markdown, html, scss
+<div class="list-group">
+  <a href="https://github.com/milokhl/personal-website" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">This website</h5>
+    </div>
+   	<p class="mb-1">Made with express.js, node.js, markdown, and bootstrap </p>
+  </a>
 
-- [LED Light Controller](/pages/led-light-controller): Arduino, swift, bluetooth
+  <a href="/pages/led-light-controller" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">LED Light Controller</h5>
+    </div>
+   	<p class="mb-1">LED lighting controller over bluetooth by my phone </p>
+  </a>
 
-- [Quadcopter](https://milokhl.wordpress.com/450mm-aerial-photography-quadcopter/):
-- MIT Pokerbots
+  <a href="/pages/maslab-2017" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">MASLAB 2017</h5>
+    </div>
+   	<p class="mb-1">An autonomous block-stacking robot </p>
+  </a>
 
-- [MASLAB: Building an Autonomous Block Stacking Robot](/pages/maslab-2017)
+  <a href="https://devpost.com/software/tourdemarsvr" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">HACKMIT 2016</h5>
+    </div>
+   	<p class="mb-1">A cooperative VR game with some janky hardware</p>
+  </a>
 
-- Reinforcement Learning Poker
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Trading with Deep Q-Learning</h5>
+    </div>
+   	<p class="mb-1">#TODO</p>
+  </a>
 
-- Trading Cryptocurrencies with Deep Q-Learning
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Astral Automation</h5>
+    </div>
+   	<p class="mb-1">#TODO</p>
+  </a>
 
-- [HACKMIT 2016](https://devpost.com/software/tourdemarsvr): Multiplayer VR, arduino, jank hardware
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Prometheus</h5>
+    </div>
+   	<p class="mb-1">#TODO</p>
+  </a>
+</div>

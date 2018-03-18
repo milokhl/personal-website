@@ -6,10 +6,10 @@ layout: markdown
  
 # Contact
 
-Milo Knowles
+Milo H. L. Knowles
 
-Email: mknowles@mit.edu
-
-Linkedin: https://www.linkedin.com/in/milo-knowles/
-
-Github: https://github.com/milokhl
+<ul class="list-group">
+  <li class="list-group-item">Email: mknowles@mit.edu</li>
+  <li class="list-group-item">Linkedin: https://www.linkedin.com/in/milo-knowles/</li>
+  <li class="list-group-item">Github: https://github.com/milokhl</li>
+</ul>

@@ -11,18 +11,18 @@ var markDownDir = path.join(publicDir, './markdown');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// Serve static HTML
+// Serve static HTML.
 app.use('/', express.static(publicDir));
 app.listen((process.env.PORT || 3000), function() {
-  console.log('Listening on port 3000.');
+  console.log('Listening on port ', process.env.PORT);
 });
 
-// Redirect to the main page
+// Redirect to the main page.
 app.get('/', function(req, res) {
-  res.redirect('/html/index.html');
+  res.redirect('/html/base.html');
 });
 
-// Serve static markdown files
+// Serve static markdown files.
 app.use(mds.middleware({
   rootDirectory: markDownDir,
   view: 'markdown'
