@@ -6,7 +6,7 @@ layout: markdown
 
 # MASLAB 2017: Building an autonomous block stacking robot
 
-Here's the competition page for 2017.
+Here's the [competition page for 2017](https://maslab.mit.edu/2017/media).
 
 tl;dr - The challenge is to make a robot that can autonomously navigate through a playing field, collect blocks, sort them by color, and stack them to earn points. We're given less than 4 weeks to make all of that happen!
 

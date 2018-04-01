@@ -10,4 +10,5 @@ layout: markdown
 </p>
   <hr class="my-4">
   <p>This website is a work in progress, more projects to come...</p>
+  <p>This is a test to see if LATEX works $$ x = \frac{1}{2} </p>
 </div>
