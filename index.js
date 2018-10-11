@@ -2,27 +2,27 @@ var express 					= require('express');
 		app 							= express();
 		path 							= require('path');
 		browserify 				= require('browserify-middleware');
-		mds								= require('markdown-serve');
 
 var publicDir = path.join(__dirname, './public');
-var markDownDir = path.join(publicDir, './markdown');
 
+// Set the view engine to serve .pug files from /views.
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
+
 
 // Serve static HTML.
 app.use('/', express.static(publicDir));
-app.listen((process.env.PORT || 3000), function() {
-  console.log('Listening on port ', process.env.PORT);
+app.listen(process.env.PORT || 3000, function() {
+  console.log('Listening on port', process.env.PORT || 3000);
 });
 
-// Redirect to the main page.
-app.get('/', function(req, res) {
-  res.redirect('/html/base.html');
+app.get("/", (req, res) => {
+  res.render("homepage", {
+    user: req.user
+  });
 });
 
-// Serve static markdown files.
-app.use(mds.middleware({
-  rootDirectory: markDownDir,
-  view: 'markdown'
-}));
+// Let's Encrypt challenge.
+app.get('/.well-known/acme-challenge/3N959xhuC5XC84Ik59Ham09Lr5dKXhcPnSTt69Z4X3A', function(req, res) {
+	res.send('3N959xhuC5XC84Ik59Ham09Lr5dKXhcPnSTt69Z4X3A.PIzpJbsB_q4-uxsEHMcmklQBpTNHfdMfG7IdhmYrBoc');
+});

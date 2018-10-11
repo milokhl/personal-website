@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800');
+
+/* Colors. */
+.dark-color {
+  color: #434345
+}
+.blue-color {
+  color: #5e88fc;
+}
+.white-color {
+  color: #ffffff !important;
+}
+.gray-bg {
+  background-color: #f5f6ff;
+}
+
+/* Gradients from: https://uigradients.com/#ColorsOfSky */
+.light-bkgd {
+    background: #ECE9E6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.dark-bkgd {
+    background: #6190E8;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #A7BFE8, #6190E8);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #A7BFE8, #6190E8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* Adding padding above and below all sections. */
+.section-padding {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+/* --- Page title stuff ---*/
+.page-title .title {
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #8790af;
+    font-weight: 600;
+}
+
+.text-center.page-title .title:before,
+.page-title .title:after {
+    content: '';
+    width: 50px;
+    height: 1px;
+    display: inline-block;
+    background-color: #e1e1e1;
+    margin: 0 15px;
+    -webkit-transform: translateY(-4px);
+    -ms-transform: translateY(-4px);
+    transform: translateY(-4px);
+}
