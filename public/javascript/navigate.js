@@ -99,14 +99,3 @@ function navigateLocal(pathname) {
 	}, 10);
 }
 navigateLocal();
-
-// TODO: fix back button behavior
-
-// function updateActiveButton() {
-//   var localPath = window.location.hash.substr(1);
-//   var button = document.getElementById(localPath + '-button');
-//   if (button) {
-//     button.classList.add('active');
-//   }
-// }
-// updateActiveButton();
