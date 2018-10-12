@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	div(class="container mt-5")
+
+		// For each project, override this block with a different markdown path.
+		block markdown
+			include:markdown-it /markdown/error.md
