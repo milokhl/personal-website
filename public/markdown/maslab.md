@@ -1,9 +1,3 @@
-title: MASLAB2017
-draft: false
-published: 2017-10-08 16:28:59
-layout: markdown
----
-
 # MASLAB 2017: Building an autonomous block stacking robot
 
 Here's the [competition page for 2017](https://maslab.mit.edu/2017/media).
@@ -28,9 +22,11 @@ Then, I designed the rest of the elevator and attached the linear actuator to it
 
 The whole elevator mechanism: lower the actuator, skewer a ground-level block, lift it about 3", slide another block underneath, repeat.
 
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/r7y0b0BK6cc?rel=0" frameborder="0" allowfullscreen></iframe>
-</center>
+<html>
+	<center>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/r7y0b0BK6cc?rel=0" frameborder="0" allowfullscreen></iframe>
+	</center>
+</html>
 
 And to drop a stack at the end of the match, the elevator lowers, and the grabber retracts.
 
