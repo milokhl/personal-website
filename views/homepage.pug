@@ -1,4 +1,24 @@
 extends layout
 
 block content
-  p This is the homepage!
+	div(class="container-fluid dark-bkgd")
+		section(class="section-padding" id="landing")
+			div(class="container")
+				div(class="row")
+					div(class="col-xs-12 hidden-sm col-md-5 my-auto")
+						figure(class="mobile-image wow fadeInUp text-right" data-wow-delay="0.2s")
+							img(src="/images/me.jpeg" class="img-fluid" alt="")
+					div(class="col-xs-12 col-md-7 my-auto")
+						div(class="space-80 hidden-xs")
+						h1(class="wow fadeInUp" data-wow-delay="0.4s") Milo Knowles
+						div(class="space-20")
+						div(class="desc wow fadeInUp" data-wow-delay="0.6s")
+							h3 I do things...
+
+	div(class="container-fluid light-bkgd")
+		section(class="section-padding" id="section2")
+			p Some stuff in the container...
+
+	div(class="container-fluid dark-bkgd")
+		section(class="section-padding" id="section3")
+			p Some stuff in the container...
