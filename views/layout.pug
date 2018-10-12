@@ -1,17 +1,16 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>milo | main</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <!-- Bootstrap CSS. -->
+      // Bootstrap CSS.
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-      <!-- Linear icons. -->
+      // Linear icons.
       <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 
-      <!-- Local stylesheets. -->
+      // Local stylesheets.
       <link rel="stylesheet" href="/css/animate.min.css">
       <link rel="stylesheet" href="/css/normalize.css">
       <link rel="stylesheet" href="/css/style.css">
@@ -19,49 +18,53 @@
       <link rel="stylesheet" href="/css/buttons.css">
       <link rel="stylesheet" href="/css/index.css">
 
-      <!-- Font awesome icons. -->
+      // Font awesome icons.
       <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target=".navbar" data-offset="50">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/about">Milo Knowles</a>
+      //- <a class="navbar-brand" href="/about">Milo Knowles</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active"><a class="nav-link" href="/about"></span> Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="/projects"><span class="fas fa-code"></span> Projects</a></li>
-          <li class="nav-item"><a class="nav-link" href="/contact"><span class="fas fa-address-book"></span> Contact</a></li>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a class="nav-link" href="#about"></span> Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects"><span class="fas fa-code"></span> Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact"><span class="fas fa-address-book"></span> Contact</a></li>
           <li class="nav-item"><a class="nav-link" href="/images/resume.pdf"><span class="fas fa-file-alt"></span> Resume</a></li>
           <li class="nav-item"><a class="nav-link" href="https://github.com/milokhl"><span class="fas fa-code-branch"></span> Github</a></li>
         </ul>
       </div>
     </nav>
 
-    // This is where other pages insert their content into this template.
+    // INSERT PAGE HERE //
     block content
       p This page doesn't have any content yet.
+    // INSERT PAGE HERE //
+
+    // Footer.
+    <footer class="page-footer font-small indigo mt-4">
+      <div class="footer-copyright text-center py-3">© 2018 Milo Knowles</div>
+    </footer>
     
-    <!-- Load javascript at the end of the body for faster page load. -->
+    // Load javascript at the end of the body for faster page load.
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <!-- Load my javascript bundle last. -->
-    <script type="text/javascript" src='../bundle.js'></script>
+    // Load my javascript bundle last.
+    <script type="text/javascript" src='/bundle.js'></script>
 
-    <!-- Load WOW for dynamic animations upon scroll. -->
-    <script type="text/javascript" src="../javascript/wow.min.js"></script>
-    <script>
-      new WOW().init();
-    </script>
+    // Load WOW for dynamic animations upon scroll.
+    <script type="text/javascript" src="/javascript/wow.min.js"></script>
+    <script>new WOW().init();</script>
 
-    <!-- Firebase. -->
+    // Firebase.
     <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
   </body>
 </html>
