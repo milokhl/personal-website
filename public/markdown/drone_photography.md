@@ -1,10 +1,6 @@
-title: Drone Photography
-draft: false
-published: 2017-10-08 16:28:59
-layout: markdown
----
- 
 # Drone Photography
+
+[![Simmons Hall i3 Video 2018](http://img.youtube.com/vi/zF6hUza_sEs/0.jpg)](http://www.youtube.com/watch?v=zF6hUza_sEs?t=69)
 
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/GAESMg2ZS3k?rel=0" frameborder="0" allowfullscreen></iframe>
