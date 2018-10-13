@@ -11,11 +11,11 @@ h6 {
 
 /* Set the font. */
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'K2D', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 32px;
-  color: #56585e;
+  color: #000;
 }
 
 /* Make default font sizes a little larger. */
