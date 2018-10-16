@@ -49,7 +49,7 @@ Finally, I had to design the rest of our robot around the block elevator and blo
 Fully assembled, with electronics installed:
 
 <center>
-![Full robot assembly](/images/robot-full-assembly.jpg)
+![Full robot assembly](/images/maslab/robot-full-assembly.jpg)
 </center>
 
 When it's time to release our stack of blocks at the end of the match. The front wall of the elevator rotates to one side, and the robot *really* carefully backs away. It has to be 2" from the stack for it to receive points.
@@ -69,8 +69,8 @@ In addition to the depth imagery from the Kinect, gmapping requires a couple tra
 If you're curious, this is what the tf tree looks like when I have everything running. The stuff on the right is published by the kinect driver nodes, and the stuff on the left is published by my code on the robot and the gmapping node.
 
 <center>
-![ROS Transforms](/images/publisher-frames.png)
-![Floorplan example](/images/slam2_good.png)
+![ROS Transforms](/images/maslab/publisher-frames.png)
+![Floorplan example](/images/maslab/slam2_good.png)
 </center>
 
 ## Pursuing a Block with a Webcam and OpenCV
