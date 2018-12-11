@@ -1,3 +1,4 @@
 node_modules/
 *.log.*
 themes/
+npm-debug.log
