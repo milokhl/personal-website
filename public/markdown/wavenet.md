@@ -96,9 +96,39 @@ First, I want to show some illustrative examples of what the NSynth WaveNet mode
   </div>
 </div>
 
+<div class="mt-3"></div>
+
+NSynth WaveNet seems to do well with **monophonic** wind-like instruments, such as the English Horn and the Voice Lead Synth. As the authors note in ```[3]```, WaveNet has a very characteristic sound, and tends to accentuate higher harmonics. Unfortunately, I found that for string instruments, the results are not so good. The banjo note goes out of tune, and the sound of the plucked string is somewhat lost. **NSynth WaveNet was only trained on monphonic instruments**, so it's a little unfair of me to throw a guitar chord at it. We can hear that the network jumps around between several pitches in the chord, doing it's best to reconstruct several notes at once. The result sounds really distorted and dissonant.
+
 ### Experiment 1: Zero Analysis
 
+As a first experiment, I wanted to see what happens if you *remove* a component from the temporal embeddings by setting it to zero at every timestep. If the embedding really is a "driving function for a nonlinear oscillator" as the authors of ```[3]``` hypothesize, we should lose some component of the generated sound. What gets lost?
+
+#### Results: English Horn
+<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662142897%3Fsecret_token%3Ds-clUKj&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+
+<div class="mt-3"></div>
+
+This simple modification to only one component of the vector produces very bizarre results. At least 5 of the components seem to produce static or distortion when you set them to zero. For the English horn, the 0th, 2th, 4th, 5th, 7th, 10th and 12th produce harmonics: 4th, major 7th, minor 3rd, root, minor 3rd, major 3rd, and 9th by my ears. However, there are strange artifacts along with these overtones. For example, the 2th component modification creates a C#-A#-F# descending arpeggio on the release of the note. None of these pitches are "nicely" related to the C!
+
+<div class="mt-3"></div>
+
+#### Results: Banjo
+<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662147985%3Fsecret_token%3Ds-8yo2Y&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+
+<div class="mt-3"></div>
+
+The banjo has even stranger results. A lot of the component modifications produce noise, and only a handful create overtones that are nice intervals. Some of the overtones are F, F#, C#, G#, which don't make much sense given that the fundamental frequency is a G.
+
 ### Experiment 2: Gain Analysis
+
+My next idea was to *increase* the gain on one component of the vector, while keeping the others constant. What qualities are brought out more by this change?
+
+#### Results: English Horn
+
+#### Results: Voice Lead Synth
+
+#### Results: Banjo
 
 ### Experiment 3: Sign Analysis
 
