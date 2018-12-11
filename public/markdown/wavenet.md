@@ -10,6 +10,8 @@ This was my final project for 21M.080: Introduction to Music Technology.
 
 The key idea behind an autoencoder network is that the learned embedding can represent a complex sound in a small number of parameters (```16``` in the case of NSynth WaveNet). However, if we think of each component of these embeddings as a knob on a synth, we don’t really know what each one does (at least I don't). My goal for this project is to investigate how numerical alterations to the embeddings affects qualitative aspects of the sound. Is there an interpretable meaning to each of the ```16 parameters```? What are the properties of this vector space?
 
+<hr class="mb-5">
+
 ## Background
 
 WaveNets were originally introduced in ```[6]``` as a new **autoregressive model** for text-to-speech applications. The authors of this paper tested the results on human listeners, and found that it produced much more realistic results. There were a number of technical contributions of the paper; the neural network uses many tricks to achieve a high temporal resolution and output bit depth while reducing the computational cost. The paper brings together **causal convolutions**, **gated activation units**, and **residual and skip connections** as building blocks for a complicated (convoluted?) but highly successful way to generate audio.
@@ -32,6 +34,8 @@ Since the publication of the NSynth WaveNet paper, the team at Google has releas
   <figcaption class="figure-caption">An example of temporal embeddings for three instruments. Each colored line corresponds to one of the 16 componenets of the vector. In [3] the authors extract a temporal embedding vector for each 32ms of audio. For computational reasons, I use two second audio clips in my project, so each clip produces only ~63 embeddings. From a 16kHz audio source, this is a huge amount of compression!</figcaption>
 </figure>
 
+<hr class="mb-5">
+
 ## Computational Challenges with NSynth
 
 Google Magenta's NSynth model is a very large neural network. The pretrained weights for the network were over ```900MB```! Because this model is large and generates audio *samples* one at a time, synthesizing audio is very computational intensive, even at ```16kHz```.
@@ -39,6 +43,8 @@ Google Magenta's NSynth model is a very large neural network. The pretrained wei
 This was probably the most challenging aspect of this project. Running the network on CPU was too slow to reasonably complete my final project in a weekend. Running some example code for WaveNet used up all of the available memory on my computer. The only feasible options were to do my project on a large AWS instance, or try to use the discrete graphics card on my computer.
 
 I installed NVIDIA drivers for my GeForce GTX 1050M GPU, and built tensorflow, Google's machine learning library, from source. Even with GPU support, it takes about **3 minutes for me to generate 2 seconds of audio using the network**. This is why instruments that are based on NSynth such as ```[2]``` rely on precomputing audio samples so that the network doesn't have to run in real time. I think that the massive size of NSynth and other WaveNet architectures is the largest barrier to seeing them used in more musical applications.
+
+<hr class="mb-5">
 
 ## Analysis
 
@@ -100,7 +106,18 @@ First, I want to show some illustrative examples of what the NSynth WaveNet mode
 
 <div class="mt-3"></div>
 
-NSynth WaveNet seems to do well with **monophonic** wind-like instruments, such as the English Horn and the Voice Lead Synth. As the authors note in ```[3]```, WaveNet has a very characteristic sound, and tends to accentuate higher harmonics. Unfortunately, I found that for string instruments, the results are not so good. The banjo note goes out of tune, and the sound of the plucked string is somewhat lost. **NSynth WaveNet was only trained on monphonic instruments**, so it's a little unfair of me to throw a guitar chord at it. We can hear that the network jumps around between several pitches in the chord, doing it's best to reconstruct several notes at once. The result sounds really distorted and dissonant.
+NSynth WaveNet seems to do well with **monophonic** wind-like instruments, such as the English Horn and the Voice Lead Synth. As the authors note in ```[3]```, WaveNet has a very characteristic sound, and tends to accentuate higher harmonics. Unfortunately, I found that for string instruments, the results are not so good. The banjo note goes out of tune, and the sound of the plucked string is somewhat lost. **NSynth WaveNet was only trained on monophonic instruments**, so it's a little unfair of me to throw a guitar chord at it. We can hear that the network jumps around between several pitches in the chord, doing it's best to reconstruct several notes at once. The result sounds really distorted and dissonant.
+
+<div class="container">
+  <div class="row"><h5>Piano Octaves</h5></div>
+  <div class="row">
+    <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662214915%3Fsecret_token%3Ds-LHFrs&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+  </div>
+</div>
+
+<div class="mt-3"></div>
+
+I tried reconstructing several octaves of a C from a piano. All of the reconstructed notes are the correct pitch. Note that the NSynth WaveNet has trouble with piano notes in general (plucked strings!), and heavily distorts low pitches on any instrument. At the two highest piano notes, the reconstruction starts to sound like a piano!
 
 ### Experiment 1: Zero Analysis
 
@@ -125,7 +142,6 @@ The banjo has even stranger results. A lot of the component modifications produc
 ### Experiment 2: Gain Analysis
 
 My next idea was to *increase* the gain on one component of the vector, while keeping the others constant. What qualities are brought out more by this change? In my implementation, I **double the magnitude** of each component.
-
 
 #### Results: English Horn
 <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662160063%3Fsecret_token%3Ds-bStTQ&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
@@ -221,9 +237,7 @@ To verify these observations in a different way, I plotted the embeddings extrac
   <figcaption class="figure-caption">Temporal embeddings extracted for five different pitches played on a piano. To the human eye, these embeddings are nearly identical. Notice that all 16 components are stacked in the exact same ordering (represented by their colors) for every note. As a sanity check, I generated audio from the network from these nearly identical looking embeddings. Amazingly, they do produce the correct pitches.</figcaption>
 </figure>
 
-### Experiment 5: Additive Analysis
-
-### Experiment 7: Creating Vibrato
+### Experiment 5: Creating Vibrato
 
 Finally, I wanted to see what the effect of **applying an LFO to all of the embedding components.** In an analog synth, we could control a VCA or VCO with this signal to modulate amplitude or frequency.
 
@@ -246,7 +260,11 @@ This is what the temporal embeddings look like when a ```10Hz``` LFO is applied 
 
 The vibrato is much more convincing at ```20 Hz```. As the embeddings oscillate, some harmonics become louder and softer, as if we are controlling the center frequency of a filter.
 
+<hr class="mb-5">
+
 ## Conclusions & Future Work
+
+<hr class="mb-5">
 
 ## References
 1. NSynth: Neural Audio Synthesis. https://magenta.tensorflow.org/nsynth.
