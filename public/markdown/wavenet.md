@@ -2,7 +2,9 @@
 
 This was my final project for 21M.080: Introduction to Music Technology.
 
-**I borrow many figures the paper "Neural Audio Synthesis of Musical Notes with WaveNet Autoencoders" by Engel. et. al. ```[3]```, and encourage the reader to check out this paper for more information about the NSynth WaveNet architecture, training, and results.**
+<div class="alert alert-primary" role="alert">
+  I borrow many figures the paper "Neural Audio Synthesis of Musical Notes with WaveNet Autoencoders" by Engel. et. al. ```[3]```, and encourage the reader to check out this paper for more information about the NSynth WaveNet architecture, training, and results.
+</div>
 
 ## Motivation
 
@@ -122,23 +124,129 @@ The banjo has even stranger results. A lot of the component modifications produc
 
 ### Experiment 2: Gain Analysis
 
-My next idea was to *increase* the gain on one component of the vector, while keeping the others constant. What qualities are brought out more by this change?
+My next idea was to *increase* the gain on one component of the vector, while keeping the others constant. What qualities are brought out more by this change? In my implementation, I **double the magnitude** of each component.
+
 
 #### Results: English Horn
+<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662160063%3Fsecret_token%3Ds-bStTQ&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+
+<div class="mt-3"></div>
+
+For reference, the horn is playing a C5. **In the 16 synthesized audio clips, you can hear a lot of harmonics that are related to the fundamental**. I wrote down my shortlist of observations below in case you want to follow along.
+
+<div class="row">
+  <div class="col-md-5">
+    <ul class="list-group">
+      <li class="list-group-item py-0">0: Breathy, barely audible overtones</li>
+      <li class="list-group-item py-0">1: Static</li>
+      <li class="list-group-item py-0">2: 1 octave above root</li>
+      <li class="list-group-item py-0">3: F# (the #4)</li>
+      <li class="list-group-item py-0">4: both an octave below and above</li>
+      <li class="list-group-item py-0">5: 5th, but with vibrato</li>
+      <li class="list-group-item py-0">6: root</li>
+      <li class="list-group-item py-0">7: really breathy octave above</li>
+      <li class="list-group-item py-0">8: noise</li>
+      <li class="list-group-item py-0">9: higher noise</li>
+      <li class="list-group-item py-0">10: vibrato root</li>
+      <li class="list-group-item py-0">11: higher octave, like a train whistle</li>
+      <li class="list-group-item py-0">12: two octaves up, really unstable, like tea kettle</li>
+      <li class="list-group-item py-0">13: noise</li>
+      <li class="list-group-item py-0">14: higher noise</li>
+      <li class="list-group-item py-0">15: screeching octave up</li>
+    </ul>
+  </div>
+</div>
+
+<div class="mt-3"></div>
 
 #### Results: Voice Lead Synth
+<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662161701%3Fsecret_token%3Ds-w8Nmg&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+
+<div class="mt-3"></div>
+
+Doing the same modifications to the Voice Lead Synth, we get the **exact same pattern!** You can listen to all of the gain-modified Voice Lead Synth clips while following along with the notes for the English Horn and observe the same characteristics.
+
+The Voice Lead Synth is also playing a C note. My next question was: **do these harmonic interval relationships generalize to different pitches?** I used the Banjo (below), playing a G to investigate.
 
 #### Results: Banjo
+<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662162496%3Fsecret_token%3Ds-4z8Fl&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+
+<div class="mt-3"></div>
+
+Some components still bring out the same intervals relative to the fundamental. Components 2, 6, 7, 10, and 11 still produce the root, G (although out of tune).
+
+However, there are some notable differences. Component 3 plays an F#, which is the **same pitch that was played for the C instruments**. So the absolute pitch has stayed the same, but the interval relative to the root note has changed from a #4 to a major 7th. Similarly, component 4 produces a low C note, which is the same absolute pitch from the examples with the C instruments. And component 5 sounds like a G# (or a detuned G?), which is close to the G note that was played for the C instruments. So **components 3, 4, 5 seem to cause an absolute pitch to be played while the others produce relative pitches or noise.**
 
 ### Experiment 3: Sign Analysis
 
-### Experiment 4 & 6: Pitch Analysis
+Next, I tried **flipping the sign of one component at a time.**
+
+#### Example: Banjo
+
+<div class="alert alert-danger" role="alert">
+  WARNING: Some of these clips are loud! Keep volume low.
+</div>
+
+<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662178753%3Fsecret_token%3Ds-ZdNv2&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+
+<div class="mt-3"></div>
+
+Flipping the sign of each component causes even more distortion and destruction of the original audio characteristics. More of the component modifications produce noise, and only a few have discernible pitches. Component 10 sounds the most like a banjo, but this may just be a fluke. This experiment indicates that **the sign of each component may be more important than it's magnitude**.
+
+### Experiment 4: Pitch Analysis
+
+So far, we have seen that some components of the embedding vector are correlated to relative pitches, and some produce absolute pitches. This begs the question: **how is pitch being encoded by the neural network?**
+
+The authors of ```[3]``` state in their paper that **pitch and timbre are highly entangled by the NSynth WaveNet**.
+
+<div class="alert alert-secondary" role="alert">
+  "By conditioning on pitch during training, we hypothesize that we should be able to generate multiple pitches from a single Z vector that preserve the identity of timbre and dynamics. Our initial attempts were unsuccessful, as it seems our models had learned to ignore the conditioning variable."
+</div>
+
+The authors hoped that if the pitch of a note is provided as input during training, the network will learn to use it. This would decouple the representation of pitch from the representation of timbre, which the temporal embeddings would be respondible for encoding. However, the network still tried to encode pitch inside of the embedding.
+
+<figure class="figure">
+  <img class="figure-img rounded mt-1" width="60%" src="/images/wavenet/pitch_correlation.png">
+  <figcaption class="figure-caption">The correlation between embedding vectors across 88 notes at 127 velocity. Darker blue colors indicate high correlation, while white indicates no correlation. The diagonal represents the correlation of an embedding with itself, which we expect to be the maximum. We can see that for the average of all instruments, there is a large correlation between embedding vectors for a wide range of notes. Even embedding vectors for notes several octaves apart are highly correlated. This suggests that the pitch of these notes is encoded by a very small numerical difference.</figcaption>
+</figure>
+
+<div class="alert alert-secondary" role="alert">
+  "We see that each instrument has a unique partitioning into two or more registers over which notes of different pitches have similar embeddings. Even the average over all instruments shows a broad distinction between high and low registers. On reflection, this is unsurprising as the timbre and dynamics of an instrument can vary dramatically across its range."
+</div>
+
+To verify these observations in a different way, I plotted the embeddings extraced from audio clips for ```A3, C#4, D#4, F#4, A4``` on a piano. Based on the correlation diagram above, we would expect these embeddings to look very similar, despite encoding very different pitches.
+
+<figure class="figure">
+  <img class="figure-img rounded mt-1" width="100%" src="/images/wavenet/different_pitch_embeddings.png">
+  <figcaption class="figure-caption">Temporal embeddings extracted for five different pitches played on a piano. To the human eye, these embeddings are nearly identical. Notice that all 16 components are stacked in the exact same ordering (represented by their colors) for every note. As a sanity check, I generated audio from the network from these nearly identical looking embeddings. Amazingly, they do produce the correct pitches.</figcaption>
+</figure>
 
 ### Experiment 5: Additive Analysis
 
 ### Experiment 7: Creating Vibrato
 
-## Future Work
+Finally, I wanted to see what the effect of **applying an LFO to all of the embedding components.** In an analog synth, we could control a VCA or VCO with this signal to modulate amplitude or frequency.
+
+This is what the temporal embeddings look like when a ```10Hz``` LFO is applied to each component, causing them to deviate by ```10%``` of their average amplitude. My hypothesis is that this will produce a vibrato effect.
+
+<figure class="figure">
+  <img class="figure-img rounded mt-1" width="60%" src="/images/wavenet/vibrato_10hz.png">
+  <figcaption class="figure-caption">The raw temporal embeddings and the modified result when an LFO is applied at 10Hz.</figcaption>
+</figure>
+
+<div class="mt-3"></div>
+
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/543562473%3Fsecret_token%3Ds-DCLPI&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+
+<div class="mt-3"></div>
+
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/543562947%3Fsecret_token%3Ds-UxXwO&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+
+<div class="mt-3"></div>
+
+The vibrato is much more convincing at ```20 Hz```. As the embeddings oscillate, some harmonics become louder and softer, as if we are controlling the center frequency of a filter.
+
+## Conclusions & Future Work
 
 ## References
 1. NSynth: Neural Audio Synthesis. https://magenta.tensorflow.org/nsynth.
