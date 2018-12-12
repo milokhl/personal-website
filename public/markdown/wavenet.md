@@ -3,7 +3,7 @@
 This was my final project for 21M.080: Introduction to Music Technology.
 
 <div class="alert alert-primary" role="alert">
-  I borrow many figures the paper "Neural Audio Synthesis of Musical Notes with WaveNet Autoencoders" by Engel. et. al. ```[3]```, and encourage the reader to check out this paper for more information about the NSynth WaveNet architecture, training, and results.
+  I borrow many figures the paper "Neural Audio Synthesis of Musical Notes with WaveNet Autoencoders" by Engel. et. al. [3], and encourage the reader to check out this paper for more information about the NSynth WaveNet architecture, training, and results.
 </div>
 
 ## Motivation
@@ -42,7 +42,9 @@ Google Magenta's NSynth model is a very large neural network. The pretrained wei
 
 This was probably the most challenging aspect of this project. Running the network on CPU was too slow to reasonably complete my final project in a weekend. Running some example code for WaveNet used up all of the available memory on my computer. The only feasible options were to do my project on a large AWS instance, or try to use the discrete graphics card on my computer.
 
-I installed NVIDIA drivers for my GeForce GTX 1050M GPU, and built tensorflow, Google's machine learning library, from source. Even with GPU support, it takes about **3 minutes for me to generate 2 seconds of audio using the network**. This is why instruments that are based on NSynth such as ```[2]``` rely on precomputing audio samples so that the network doesn't have to run in real time. I think that the massive size of NSynth and other WaveNet architectures is the largest barrier to seeing them used in more musical applications.
+I installed NVIDIA drivers for my GeForce GTX 1050M GPU, and built tensorflow, Google's machine learning library, from source. Even with GPU support, it takes about **3 minutes for me to generate 2 seconds of audio using the network**. When I synthesize multiple clips of output audio in a batch, the network is much more efficient: if I synthesize 8 audio clips in a batch, the total time is about 6 seconds. Amortized across the 8 clips, this means that each second of audio only takes about 24 seconds to produce.
+
+This is why instruments that are based on NSynth such as ```[2]``` rely on precomputing audio samples so that the network doesn't have to run in real time. I think that the massive size of NSynth and other WaveNet architectures is the largest barrier to seeing them used in more musical applications.
 
 <hr class="mb-5">
 
@@ -111,17 +113,17 @@ NSynth WaveNet seems to do well with **monophonic** wind-like instruments, such 
 <div class="container">
   <div class="row"><h5>Piano Octaves</h5></div>
   <div class="row">
-    <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662214915%3Fsecret_token%3Ds-LHFrs&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+    <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662401953%3Fsecret_token%3Ds-JGGf0&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
   </div>
 </div>
 
 <div class="mt-3"></div>
 
-I tried reconstructing several octaves of a C from a piano. All of the reconstructed notes are the correct pitch. Note that the NSynth WaveNet has trouble with piano notes in general (plucked strings!), and heavily distorts low pitches on any instrument. At the two highest piano notes, the reconstruction starts to sound like a piano!
+I tried reconstructing several octaves of a C from a piano. All of the reconstructed notes are the correct pitch. Note that the NSynth WaveNet has trouble with piano notes in general (plucked strings!), and heavily distorts low pitches on any instrument. At the highest piano note, the reconstruction starts to sound like a piano!
 
 ### Experiment 1: Zero Analysis
 
-As a first experiment, I wanted to see what happens if you *remove* a component from the temporal embeddings by setting it to zero at every timestep. If the embedding really is a "driving function for a nonlinear oscillator" as the authors of ```[3]``` hypothesize, we should lose some component of the generated sound. What gets lost?
+As a first experiment, I wanted to see what happens if you ***remove* a component from the temporal embeddings by setting it to zero at every timestep**. If the embedding really is a "driving function for a nonlinear oscillator" as the authors of ```[3]``` hypothesize, we should lose some component of the generated sound. What gets lost?
 
 #### Results: English Horn
 <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662142897%3Fsecret_token%3Ds-clUKj&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
@@ -137,7 +139,7 @@ This simple modification to only one component of the vector produces very bizar
 
 <div class="mt-3"></div>
 
-The banjo has even stranger results. A lot of the component modifications produce noise, and only a handful create overtones that are nice intervals. Some of the overtones are F, F#, C#, G#, which don't make much sense given that the fundamental frequency is a G.
+The banjo has even stranger results. A lot of the component modifications produce noise, and only a handful create overtones that are nice intervals. Some of the overtones are F, F#, C#, G#, which doesn't make much sense given that the fundamental frequency is a G.
 
 ### Experiment 2: Gain Analysis
 
@@ -182,7 +184,7 @@ For reference, the horn is playing a C5. **In the 16 synthesized audio clips, yo
 
 Doing the same modifications to the Voice Lead Synth, we get the **exact same pattern!** You can listen to all of the gain-modified Voice Lead Synth clips while following along with the notes for the English Horn and observe the same characteristics.
 
-The Voice Lead Synth is also playing a C note. My next question was: **do these harmonic interval relationships generalize to different pitches?** I used the Banjo (below), playing a G to investigate.
+The Voice Lead Synth is also playing a C note. My next question was: **do these harmonic interval relationships generalize to different pitches?** Maybe I just got lucky because both instruments are playing a C. I used the Banjo (below), playing a G to investigate.
 
 #### Results: Banjo
 <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662162496%3Fsecret_token%3Ds-4z8Fl&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
@@ -237,6 +239,20 @@ To verify these observations in a different way, I plotted the embeddings extrac
   <figcaption class="figure-caption">Temporal embeddings extracted for five different pitches played on a piano. To the human eye, these embeddings are nearly identical. Notice that all 16 components are stacked in the exact same ordering (represented by their colors) for every note. As a sanity check, I generated audio from the network from these nearly identical looking embeddings. Amazingly, they do produce the correct pitches.</figcaption>
 </figure>
 
+To try to isolate pitch from timbre as much as possible, I did analysis on some pure sinewaves.
+I found a [great tool for generating sine tones](https://www.audiocheck.net/audiofrequencysignalgenerator_sinetone.php) and downloaded tones ranging from 100Hz to 5000Hz. Because WaveNet operates at 16kHz, it was not possible to use any tones above the Nyquist frequency of 8kHz. Below, I plotted the average value of each component of the embeddings against the frequency in Hz.
+
+<figure class="figure">
+  <img class="figure-img rounded mt-1" width="100%" src="/images/wavenet/sine_encoding_vs_pitch.png">
+  <figcaption class="figure-caption">Note: Due to limited colors in pyplot, certain components have the same color as each other.</figcaption>
+</figure>
+
+It appears that the components tend to spread out as frequency increases. There is roughly a **linear relationship between each component's magnitude and the frequency of the note**. However, several components break this trend and have a significant curvature. Fitting a set of nonlinear functions to the curves might provide a method for artificially changing the pitch of any instrument.
+
+For completeness, here are the synthesized audio clips from these embeddings. NSynth WaveNet does a pretty good job recreating sine tones.
+
+<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/662436369%3Fsecret_token%3Ds-skOaX&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+ 
 ### Experiment 5: Creating Vibrato
 
 Finally, I wanted to see what the effect of **applying an LFO to all of the embedding components.** In an analog synth, we could control a VCA or VCO with this signal to modulate amplitude or frequency.
@@ -264,12 +280,18 @@ The vibrato is much more convincing at ```20 Hz```. As the embeddings oscillate,
 
 ## Conclusions & Future Work
 
+My project gave me a lot of insight into NSynth WaveNet's embeddings, but much more analysis is necessary to understand what is going on.
+
+Through numerical modifications to individual embedding components, I discovered that certain components are strongly correlated with particular overtones, but not for all instruments and pitches. I also discovered that the embeddings are very unstable, and do not tolerate much modification. Setting some components to zero, doubling them, or flipping their sign created horrible distortion or white noise in many cases.
+
+IAnalysis on pure sine waves was an effective way to isolate the relationship between encoding magnitude and frequency, and is a promising route for future analysis. I would like to perform all of the experiments detailed above on the pure sine tones to see if cleaner patterns emerge.
+
 <hr class="mb-5">
 
 ## References
-1. NSynth: Neural Audio Synthesis. https://magenta.tensorflow.org/nsynth.
-2. NSynth Super. https://nsynthsuper.withgoogle.com/.
-3. J. Engel, A. Roberts, S. Dieleman, D. Eck, K. Simonyan, M. Norouzi. “Neural Audio Synthesis of Musical Notes with WaveNet Autoencoders”. https://arxiv.org/pdf/1704.01279.
-4. NSynth Source Code. https://github.com/tensorflow/magenta/tree/master/magenta/models/nsynth.
-5. Max/MSP Interface for NSynth. https://github.com/tensorflow/magenta-demos/tree/master/nsynth.
-6. van den Oord, A¨aron, Dieleman, Sander, Zen, Heiga, Simonyan, Karen, Vinyals, Oriol, Graves, Alex, Kalchbrenner, Nal, Senior, Andrew W., and Kavukcuoglu, Koray. Wavenet: A generative model for raw audio. CoRR, abs/1609.03499, 2016a. URL http://arxiv.org/abs/1609.03499.
+1. NSynth: Neural Audio Synthesis. [https://magenta.tensorflow.org/nsynth](https://magenta.tensorflow.org/nsynth).
+2. NSynth Super. [https://nsynthsuper.withgoogle.com/](https://nsynthsuper.withgoogle.com/).
+3. J. Engel, A. Roberts, S. Dieleman, D. Eck, K. Simonyan, M. Norouzi. “Neural Audio Synthesis of Musical Notes with WaveNet Autoencoders”. [https://arxiv.org/pdf/1704.01279](https://arxiv.org/pdf/1704.01279).
+4. Google Magenta: NSynth Model. Github. [https://github.com/tensorflow/magenta/tree/master/magenta/models/nsynth](https://github.com/tensorflow/magenta/tree/master/magenta/models/nsynth).
+5. Max/MSP Interface for NSynth. [https://github.com/tensorflow/magenta-demos/tree/master/nsynth](https://github.com/tensorflow/magenta-demos/tree/master/nsynth).
+6. van den Oord, A¨aron, Dieleman, Sander, Zen, Heiga, Simonyan, Karen, Vinyals, Oriol, Graves, Alex, Kalchbrenner, Nal, Senior, Andrew W., and Kavukcuoglu, Koray. Wavenet: A generative model for raw audio. CoRR, abs/1609.03499, 2016a. [http://arxiv.org/abs/1609.03499](http://arxiv.org/abs/1609.03499).
