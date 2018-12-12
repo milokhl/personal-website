@@ -2,13 +2,19 @@
 
 This was my final project for 21M.080: Introduction to Music Technology.
 
+Code for this project: [https://github.com/milokhl/wavenet-embeddings](https://github.com/milokhl/wavenet-embeddings)
+
 <div class="alert alert-primary" role="alert">
   I borrow many figures the paper "Neural Audio Synthesis of Musical Notes with WaveNet Autoencoders" by Engel. et. al. [3], and encourage the reader to check out this paper for more information about the NSynth WaveNet architecture, training, and results.
 </div>
 
+<div class="alert alert-warning" role="alert">
+  Throughout this paper, I use the words "encoding" and "embedding" interchangeably.
+</div>
+
 ## Motivation
 
-The key idea behind an autoencoder network is that the learned embedding can represent a complex sound in a small number of parameters (```16``` in the case of NSynth WaveNet). However, if we think of each component of these embeddings as a knob on a synth, we don’t really know what each one does (at least I don't). My goal for this project is to investigate how numerical alterations to the embeddings affects qualitative aspects of the sound. Is there an interpretable meaning to each of the ```16 parameters```? What are the properties of this vector space?
+The key idea behind an autoencoder network is that the learned embedding can represent a complex sound in a small number of parameters (```16``` in the case of NSynth WaveNet). However, if we think of each component of these embeddings as a knob on a synth, we don’t really know what each one does. My goal for this project is to investigate how numerical alterations to the embeddings affects qualitative aspects of the sound. Is there an interpretable meaning to each of the ```16 parameters```? What are the properties of this vector space?
 
 <hr class="mb-5">
 
@@ -27,7 +33,7 @@ Engel et. al., in “Neural Audio Synthesis of Musical Notes with WaveNet Autoen
 
 In this way, it is *implicitly* identifying characteristics of an instrument, rather than requiring them to be explicitly fed in as input. Without external conditioning, the **NSynth WaveNet** is much more powerful, because there are no input parameters that need to be controlled by a human. The authors show that the learned temporal embeddings can be extracted from audio clips that the network was not trained on and used to create new sounds through **interpolation in the embedding space**.
 
-Since the publication of the NSynth WaveNet paper, the team at Google has released many apps that show how the embeddings of multiple instruments (i.e a cat and a flugelhorn) can be interpolated between to produce a new hybrid instrument ```[2]```.
+Since the publication of the NSynth WaveNet paper, Google Magenta has released many apps that show how the embeddings of multiple instruments (i.e a cat and a flugelhorn) can be combined to produce a new hybrid instrument ```[2]```.
 
 <figure class="figure">
   <img class="figure-img rounded mt-1" width="100%" src="/images/wavenet/embeddings_ex1.png">
@@ -42,7 +48,7 @@ Google Magenta's NSynth model is a very large neural network. The pretrained wei
 
 This was probably the most challenging aspect of this project. Running the network on CPU was too slow to reasonably complete my final project in a weekend. Running some example code for WaveNet used up all of the available memory on my computer. The only feasible options were to do my project on a large AWS instance, or try to use the discrete graphics card on my computer.
 
-I installed NVIDIA drivers for my GeForce GTX 1050M GPU, and built tensorflow, Google's machine learning library, from source. Even with GPU support, it takes about **3 minutes for me to generate 2 seconds of audio using the network**. When I synthesize multiple clips of output audio in a batch, the network is much more efficient: if I synthesize 8 audio clips in a batch, the total time is about 6 seconds. Amortized across the 8 clips, this means that each second of audio only takes about 24 seconds to produce.
+I installed NVIDIA drivers for my GeForce GTX 1050M GPU, and built tensorflow, Google's machine learning library, from source. Even with GPU support, it takes about **3 minutes for me to generate 2 seconds of audio using the network**. When I synthesize multiple clips of output audio in a batch, the network is much more efficient: if I synthesize 8 audio clips in a batch, the total time is about 6 minutes. Amortized across the 8 clips, this means that each second of audio only takes about 24 seconds to produce.
 
 This is why instruments that are based on NSynth such as ```[2]``` rely on precomputing audio samples so that the network doesn't have to run in real time. I think that the massive size of NSynth and other WaveNet architectures is the largest barrier to seeing them used in more musical applications.
 
@@ -50,9 +56,11 @@ This is why instruments that are based on NSynth such as ```[2]``` rely on preco
 
 ## Analysis
 
-There were two ways I tried to gain insight into the temporal embeddings. In the "causal" approach, I modify the temporal embeddings of an instrument playing a note, and then synthesize an output clip of audio using NSynth WaveNet. In the "derived" approach, I take several related input clips of audio (i.e different notes played by the same piano), extract embeddings from them, and compare the results.
+There were two ways I tried to gain insight into the temporal embeddings. In the *causal* approach, I modify the temporal embeddings of an instrument playing a note, and then synthesize an audio clip from the modified embedding using NSynth WaveNet as a decoder. In the other approach, I take several related input clips of audio (i.e different notes played by the same piano), extract embeddings from them, and compare properties of the embeddings.
 
 I ran a number of different experiments, and detail my results below!
+
+<hr class="mb-5">
 
 ### Experiment 0: Audio Reconstruction Quality
 
@@ -121,7 +129,9 @@ NSynth WaveNet seems to do well with **monophonic** wind-like instruments, such 
 
 I tried reconstructing several octaves of a C from a piano. All of the reconstructed notes are the correct pitch. Note that the NSynth WaveNet has trouble with piano notes in general (plucked strings!), and heavily distorts low pitches on any instrument. At the highest piano note, the reconstruction starts to sound like a piano!
 
-### Experiment 1: Zero Analysis
+<hr class="mb-5">
+
+### Experiment 1: Removing a Component
 
 As a first experiment, I wanted to see what happens if you ***remove* a component from the temporal embeddings by setting it to zero at every timestep**. If the embedding really is a "driving function for a nonlinear oscillator" as the authors of ```[3]``` hypothesize, we should lose some component of the generated sound. What gets lost?
 
@@ -130,7 +140,7 @@ As a first experiment, I wanted to see what happens if you ***remove* a componen
 
 <div class="mt-3"></div>
 
-This simple modification to only one component of the vector produces very bizarre results. At least 5 of the components seem to produce static or distortion when you set them to zero. For the English horn, the 0th, 2th, 4th, 5th, 7th, 10th and 12th produce harmonics: 4th, major 7th, minor 3rd, root, minor 3rd, major 3rd, and 9th by my ears. However, there are strange artifacts along with these overtones. For example, the 2th component modification creates a C#-A#-F# descending arpeggio on the release of the note. None of these pitches are "nicely" related to the C!
+This simple modification to only one component of the vector produces very bizarre results. For at least 5 of the components, removal seems to produce static or distortion. For the English horn, removing the 0th, 2th, 4th, 5th, 7th, 10th and 12th leaves us with harmonics: 4th, major 7th, minor 3rd, root, minor 3rd, major 3rd, and 9th by my ears. However, there are strange artifacts along with these overtones. For example, the 2th component modification creates a C#-A#-F# descending arpeggio on the release of the note. None of these pitches are "nicely" related to the C!
 
 <div class="mt-3"></div>
 
@@ -139,7 +149,7 @@ This simple modification to only one component of the vector produces very bizar
 
 <div class="mt-3"></div>
 
-The banjo has even stranger results. A lot of the component modifications produce noise, and only a handful create overtones that are nice intervals. Some of the overtones are F, F#, C#, G#, which doesn't make much sense given that the fundamental frequency is a G.
+The banjo has even stranger results. A lot of the component removals produce noise, and only a handful create overtones that are nice intervals. Some of the overtones are F, F#, C#, G#, which doesn't make much sense given that the fundamental frequency is a G.
 
 ### Experiment 2: Gain Analysis
 
@@ -221,11 +231,11 @@ The authors of ```[3]``` state in their paper that **pitch and timbre are highly
   "By conditioning on pitch during training, we hypothesize that we should be able to generate multiple pitches from a single Z vector that preserve the identity of timbre and dynamics. Our initial attempts were unsuccessful, as it seems our models had learned to ignore the conditioning variable."
 </div>
 
-The authors hoped that if the pitch of a note is provided as input during training, the network will learn to use it. This would decouple the representation of pitch from the representation of timbre, which the temporal embeddings would be respondible for encoding. However, the network still tried to encode pitch inside of the embedding.
+The authors hoped that if the pitch of a note is provided as input during training, the network will learn to use it. This would decouple the representation of pitch from the representation of timbre, allowing the temporal embeddings to be only responsible for timbre. However, the network still tries to encode pitch inside of the embedding.
 
 <figure class="figure">
   <img class="figure-img rounded mt-1" width="60%" src="/images/wavenet/pitch_correlation.png">
-  <figcaption class="figure-caption">The correlation between embedding vectors across 88 notes at 127 velocity. Darker blue colors indicate high correlation, while white indicates no correlation. The diagonal represents the correlation of an embedding with itself, which we expect to be the maximum. We can see that for the average of all instruments, there is a large correlation between embedding vectors for a wide range of notes. Even embedding vectors for notes several octaves apart are highly correlated. This suggests that the pitch of these notes is encoded by a very small numerical difference.</figcaption>
+  <figcaption class="figure-caption">The correlation between embedding vectors across 88 notes at 127 velocity. Darker blue colors indicate high correlation, while white indicates no correlation. The diagonal represents the correlation of an embedding with itself, which we expect to be the maximum. We can see that for the average across all instruments, there is a large correlation between embedding vectors for a wide range of notes. Even embedding vectors for notes several octaves apart are highly correlated. This suggests that the pitch of these notes is encoded by a very small numerical difference.</figcaption>
 </figure>
 
 <div class="alert alert-secondary" role="alert">
@@ -244,10 +254,10 @@ I found a [great tool for generating sine tones](https://www.audiocheck.net/audi
 
 <figure class="figure">
   <img class="figure-img rounded mt-1" width="100%" src="/images/wavenet/sine_encoding_vs_pitch.png">
-  <figcaption class="figure-caption">Note: Due to limited colors in pyplot, certain components have the same color as each other.</figcaption>
+  <figcaption class="figure-caption">Note: Due to limited colors in pyplot, certain components have the same color as each other. Sorry!</figcaption>
 </figure>
 
-It appears that the components tend to spread out as frequency increases. There is roughly a **linear relationship between each component's magnitude and the frequency of the note**. However, several components break this trend and have a significant curvature. Fitting a set of nonlinear functions to the curves might provide a method for artificially changing the pitch of any instrument.
+It appears that the components tend to spread out as frequency increases. There is roughly a **linear relationship between each component's magnitude and the frequency of the note**. However, several components break this trend and have a significant curvature. **Fitting a set of nonlinear functions to the curves might provide a method for artificially changing the pitch of any instrument. This is definitely an avenue I would like to explore in the future.**
 
 For completeness, here are the synthesized audio clips from these embeddings. NSynth WaveNet does a pretty good job recreating sine tones.
 
@@ -255,9 +265,9 @@ For completeness, here are the synthesized audio clips from these embeddings. NS
  
 ### Experiment 5: Creating Vibrato
 
-Finally, I wanted to see what the effect of **applying an LFO to all of the embedding components.** In an analog synth, we could control a VCA or VCO with this signal to modulate amplitude or frequency.
+Finally, I wanted to see what the effect of **applying an LFO to all of the embedding components.** In an analog synth, we could modulate the frequency of an oscillator with an LFO to produce vibrato.
 
-This is what the temporal embeddings look like when a ```10Hz``` LFO is applied to each component, causing them to deviate by ```10%``` of their average amplitude. My hypothesis is that this will produce a vibrato effect.
+This is what the temporal embeddings look like when a ```10Hz``` LFO is added to each component, causing them to deviate by ```10%``` of their average amplitude. My hypothesis is that this will produce a vibrato effect.
 
 <figure class="figure">
   <img class="figure-img rounded mt-1" width="60%" src="/images/wavenet/vibrato_10hz.png">
@@ -282,9 +292,11 @@ The vibrato is much more convincing at ```20 Hz```. As the embeddings oscillate,
 
 My project gave me a lot of insight into NSynth WaveNet's embeddings, but much more analysis is necessary to understand what is going on.
 
-Through numerical modifications to individual embedding components, I discovered that certain components are strongly correlated with particular overtones, but not for all instruments and pitches. I also discovered that the embeddings are very unstable, and do not tolerate much modification. Setting some components to zero, doubling them, or flipping their sign created horrible distortion or white noise in many cases.
+In a very rough abstract sense, **we can think of the embeddings as complex parameters to a filter** (the decoder network). Through numerical modifications to individual embedding components, I discovered that some are strongly correlated with particular harmonics, but not for all instruments and pitches. Increasing some components brings out different overtones. Applying a small oscillation to the components seems to move around the center frequency of a filter.
 
-IAnalysis on pure sine waves was an effective way to isolate the relationship between encoding magnitude and frequency, and is a promising route for future analysis. I would like to perform all of the experiments detailed above on the pure sine tones to see if cleaner patterns emerge.
+I also discovered that the **embeddings are very unstable**, and do not tolerate much modification before the original sound is lost. Setting some components to zero, doubling them, or flipping their sign created horrible distortion or white noise in many cases.
+
+**Pitch and timbre are highly entangled in the encodings**. Analysis on pure sine waves was an effective way to isolate the relationship between encoding magnitude and frequency, and is a promising route for future analysis. I would like to perform all of the experiments detailed above on the pure sine tones to see if cleaner patterns emerge.
 
 <hr class="mb-5">
 
