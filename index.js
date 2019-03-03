@@ -17,7 +17,7 @@ app.listen(process.env.PORT || 3000, function() {
 });
 
 // Serve the homepage at the base URL.
-app.get("/", (req, res) => {
+app.get("/home", (req, res) => {
   res.render("homepage", {});
 });
 
