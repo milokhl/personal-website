@@ -1,12 +1,12 @@
-# Automated Mail Recognition and Notification
+##  Automated Mail Recognition and Notification
 
 For MAKEMIT 2019, my team built an automated mail system. Our elevator pitch was to "make physical mail as convenient as email".
 
-## Mechanical Design
+### Mechanical Design
 
 To make the text detection more robust, we need to check both sides of each envelope. The envelope is held at a 45-degree angle, and can be flipped to either side by a servo. This allows a single camera to image either side. We can account for this rotation later on in software.
 
-## Optical Character Recognition
+### Optical Character Recognition
 
 This was probably the most complex part of our processing pipeline. We used Google Tesseract to detect characters in camera images.
 
@@ -17,15 +17,15 @@ Overall, the OCR algorithm (LSTM based neural network) performance varies a lot 
 - Detect the corners of an envelope and apply a perspective transform to view the image top-down
 
 <center>
-![Detected edges](/images/makemit/edges.jpg)
+![Detected edges](/images/makemit/edges.png)
 </center>
 
 <center>
-![Detected envelope](/images/makemit/crop.jpg)
+![Detected envelope](/images/makemit/crop.png)
 </center>
 
 <center>
-![Top-down image view](/images/makemit/birdseye.jpg)
+![Top-down image view](/images/makemit/birdseye.png)
 </center>
 
 We then crop the envelope into 4 quadrants, as well as the center, since these are common locations for name information.
@@ -38,7 +38,7 @@ Even after all of these enhancements, OCR performance is still a little messy. F
 
 We do get a few potentially useful pieces of information, such as name, address, and sender address.
 
-## Text Matching (Edit Distance)
+### Text Matching (Edit Distance)
 
 Oftentimes, we detected something close to the correct name, but not an exact match. In addition, we got a lot of irrelevant text.
 
@@ -61,7 +61,7 @@ This is only a single letter edit away from the correct name, so the matching al
 Name: Mark Halsey Score: 0.09090909090909091
 ```
 
-## Email notification
+### Email notification
 
 We use ```smtplib``` in Python to send emails to the detected recipients.
 

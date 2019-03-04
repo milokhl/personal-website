@@ -3,6 +3,7 @@ var express 					= require('express');
 		path 							= require('path');
 		browserify 				= require('browserify-middleware');
 
+// Any path, i.e /images/me.jpeg will be relative to the public directory.
 var publicDir = path.join(__dirname, './public');
 app.locals.basedir = publicDir; // Needed for pug to use absolute paths.
 
@@ -17,18 +18,24 @@ app.listen(process.env.PORT || 3000, function() {
 });
 
 // Serve the homepage at the base URL.
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
   res.render("homepage", {});
+});
+// Also alias "homepage" to the homepage.
+app.get("/homepage", (req, res) => {
+	res.render("homepage", {})
 });
 
 // Serve projects by string matching.
 app.get("/projects/*", (req, res) => {
 	const pageUrl = req.params['0'];
 	if (pageUrl) {
+		// Get rid of .md so that the .pug page is loaded.
 		const projectUrl = path.join('projects', pageUrl.replace('.md', '.pug'));
-		res.render(projectUrl); // Get rid of .md so that the .pug page is loaded.
+		res.render(projectUrl);
 	} else {
-		res.render("project", {}); // Else show the base project page.
+		// Else show the base project page.
+		res.render("project", {});
 	}
 });
 
