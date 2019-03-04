@@ -1,6 +1,6 @@
 # iPhone Controlled LED Lighting using Arduino, Bluetooth, and Swift
 
-Here's a link to the [code for this project](https://github.com/milokhl/led-light-controller) on Github.
+Here's a link to the [code for this project](https://github.com/miloknowles/led-light-controller) on Github.
 
 <center>
 	<img class="mt-1" width="100%" src="/images/led/magenta_room.jpg">
@@ -29,7 +29,7 @@ Here’s what the main view of the app looks like. Create a custom color with th
 ## Arduino Sketch
 
 <div class="gist-snippet">
-	<script src="https://gist.github.com/milokhl/21805f3afe1bce81dea0652050d57b8f.js"></script>
+	<script src="https://gist.github.com/miloknowles/21805f3afe1bce81dea0652050d57b8f.js"></script>
 </div>
 
 <div class="mt-5">

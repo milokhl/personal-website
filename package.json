@@ -25,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/milokhl/personal-website.git"
+    "url": "git+https://github.com/miloknowles/personal-website.git"
   },
   "author": "Milo Knowles",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/milokhl/personal-website/issues"
+    "url": "https://github.com/miloknowles/personal-website/issues"
   },
-  "homepage": "https://github.com/milokhl/personal-website#readme"
+  "homepage": "https://github.com/miloknowles/personal-website#readme"
 }

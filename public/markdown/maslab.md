@@ -8,7 +8,7 @@ tl;dr - The challenge is to make a robot that can autonomously navigate through 
  - you get (N+1)^2 points for a stack of size N of your color in your base (a designated purple area on the playing field)
  - there are 2 buttons on the field: one of them drops 6 of your own blocks (good!) and the other drops 6 opponent blocks (-1 points each!)
 
-You can find all of the [code for the project here](https://github.com/milokhl/MASLAB-2017/). Warning: a lot of code was changed at 5am the day before the competition, so if it's messy I apologize.
+You can find all of the [code for the project here](https://github.com/miloknowles/MASLAB-2017/). Warning: a lot of code was changed at 5am the day before the competition, so if it's messy I apologize.
 
 ## Mechanical design
 

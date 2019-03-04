@@ -2,7 +2,7 @@
 
 This was my final project for 21M.080: Introduction to Music Technology.
 
-Code for this project: [https://github.com/milokhl/wavenet-embeddings](https://github.com/milokhl/wavenet-embeddings)
+Code for this project: [https://github.com/miloknowles/wavenet-embeddings](https://github.com/miloknowles/wavenet-embeddings)
 
 <div class="alert alert-primary" role="alert">
   I borrow many figures the paper "Neural Audio Synthesis of Musical Notes with WaveNet Autoencoders" by Engel. et. al. [3], and encourage the reader to check out this paper for more information about the NSynth WaveNet architecture, training, and results.
