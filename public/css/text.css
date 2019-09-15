@@ -11,20 +11,17 @@ h6 {
 
 /* Set the font. */
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Nunito';
   font-weight: 400;
-  font-size: 16px;
-  line-height: 32px;
+  font-size: 18px;
+  line-height: 30px;
   color: #000;
 }
 
 /* Make default font sizes a little larger. */
 h1 {
-  font-size: 60px;
-}
-h2 {
   font-size: 50px;
 }
-h3 {
-  font-size: 32px;
+h2 {
+  font-size: 28px;
 }
